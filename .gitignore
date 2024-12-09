@@ -16,3 +16,12 @@ db.sqlite3
 # Системные файлы ОС
 .DS_Store
 Thumbs.db
+
+*/migrations/__pycache__/
+*/migrations/*.pyc
+*/migrations/*.pyo
+*/migrations/*.log
+
+*.pyc
+*.pyo
+__pycache__/
