@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <h1>{{ task.title }}</h1>
+  <p>{{ task.description|linebreaks }}</p>
+  <p><strong>Дедлайн:</strong> {% if task.due_date %}{{ task.due_date|date:"d.m.Y H:i" }}{% else %}Не указан{% endif %}</p>
+  <p><strong>Статус:</strong> {% if task.completed %}<span class="badge bg-success">Выполнено</span>{% else %}<span class="badge bg-warning text-dark">В работе</span>{% endif %}</p>
+  <p><strong>Категория:</strong> {{ task.category }}</p>
+  <p><strong>Теги:</strong>
+  {% for tag in task.tags.all %}
+    <a href="{% url 'tags:tag_detail' tag.slug %}">{{ tag.name }}</a>{% if not forloop.last %}, {% endif %}
+  {% endfor %}
+  </p>
+
+  <a href="{% url 'tasks:task_update' task.pk %}" class="btn btn-info">Редактировать</a>
+  <a href="{% url 'tasks:task_delete' task.pk %}" class="btn btn-danger">Удалить</a>
+  <a href="{% url 'tasks:task_toggle_complete' task.pk %}" class="btn btn-secondary">{% if task.completed %}Сделать невыполненной{% else %}Отметить выполненной{% endif %}</a>
+</div>
+{% endblock %}

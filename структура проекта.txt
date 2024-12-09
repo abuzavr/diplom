@@ -1,0 +1,82 @@
+personal_notes_project/
+├─ requirements.txt
+├─ README.md
+├─ manage.py
+├─ personal_notes_project/
+│  ├─ __init__.py
+│  ├─ settings.py
+│  ├─ urls.py
+│  ├─ wsgi.py
+│  ├─ asgi.py
+├─ accounts/
+│  ├─ __init__.py
+│  ├─ admin.py
+│  ├─ apps.py
+│  ├─ forms.py
+│  ├─ models.py
+│  ├─ views.py
+│  ├─ urls.py
+│  └─ templates/accounts/
+│     ├─ login.html
+│     ├─ register.html
+│     ├─ profile.html
+│     ├─ password_change.html
+│     └─ ...
+├─ notes/
+│  ├─ __init__.py
+│  ├─ admin.py
+│  ├─ apps.py
+│  ├─ forms.py
+│  ├─ models.py
+│  ├─ views.py
+│  ├─ urls.py
+│  ├─ templates/notes/
+│  │  ├─ note_list.html
+│  │  ├─ note_detail.html
+│  │  ├─ note_form.html
+│  │  └─ ...
+│  ├─ static/notes/
+│  │  ├─ css/
+│  │  └─ js/
+│  └─ ...
+├─ tasks/
+│  ├─ __init__.py
+│  ├─ admin.py
+│  ├─ apps.py
+│  ├─ forms.py
+│  ├─ models.py
+│  ├─ views.py
+│  ├─ urls.py
+│  ├─ templates/tasks/
+│  │  ├─ task_list.html
+│  │  ├─ task_detail.html
+│  │  ├─ task_form.html
+│  │  └─ ...
+│  └─ ...
+├─ categories/
+│  ├─ __init__.py
+│  ├─ admin.py
+│  ├─ apps.py
+│  ├─ models.py
+│  ├─ views.py
+│  ├─ urls.py
+│  ├─ templates/categories/
+│  │  └─ ...
+│  └─ ...
+├─ tags/
+│  ├─ __init__.py
+│  ├─ admin.py
+│  ├─ apps.py
+│  ├─ models.py
+│  ├─ views.py
+│  ├─ urls.py
+│  ├─ templates/tags/
+│  │  └─ ...
+│  └─ ...
+├─ templates/
+│  ├─ base.html
+│  └─ ...
+└─ static/
+   ├─ css/
+   ├─ js/
+   └─ img/

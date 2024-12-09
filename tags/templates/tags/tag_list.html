@@ -1,0 +1,16 @@
+''' Шаблоны для тегов (tags/templates/tags/):
+tag_list.html - список всех тегов '''
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <h1>Все теги</h1>
+  <ul>
+    {% for tag in tags %}
+      <li><a href="{% url 'tags:tag_detail' tag.slug %}">{{ tag.name }}</a></li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}
+

@@ -1,0 +1,18 @@
+#tag_detail.html - заметки по выбранному тегу:
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <h1>Тег: {{ tag.name }}</h1>
+  {% if notes %}
+    <ul>
+    {% for note in notes %}
+      <li><a href="{% url 'notes:note_detail' note.pk %}">{{ note.title }}</a></li>
+    {% endfor %}
+    </ul>
+  {% else %}
+    <p>Нет заметок с этим тегом</p>
+  {% endif %}
+</div>
+{% endblock %}

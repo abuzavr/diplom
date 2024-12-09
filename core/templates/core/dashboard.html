@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+  <h1>Личный кабинет</h1>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h4>Статистика</h4>
+          <p>Заметок: {{ note_count }}</p>
+          <p>Задач: {{ task_count }}</p>
+          <p>Выполненных задач: {{ completed_task_count }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <h4>Ближайшие задачи</h4>
+      {% if upcoming_tasks %}
+        <ul class="list-group">
+        {% for t in upcoming_tasks %}
+          <li class="list-group-item">
+            <a href="{% url 'tasks:task_detail' t.pk %}">{{ t.title }}</a><br>
+            <small>Дедлайн: {{ t.due_date|date:"d.m.Y H:i" }}</small>
+          </li>
+        {% endfor %}
+        </ul>
+      {% else %}
+        <p>Нет ближайших задач</p>
+      {% endif %}
+    </div>
+
+    <div class="col-md-4">
+      <h4>Последние заметки</h4>
+      {% if recent_notes %}
+        <ul class="list-group">
+        {% for n in recent_notes %}
+          <li class="list-group-item">
+            <a href="{% url 'notes:note_detail' n.pk %}">{{ n.title }}</a><br>
+            <small>Добавлено: {{ n.created_at|date:"d.m.Y H:i" }}</small>
+          </li>
+        {% endfor %}
+        </ul>
+      {% else %}
+        <p>Нет заметок</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

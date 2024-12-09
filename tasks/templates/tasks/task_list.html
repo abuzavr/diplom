@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container">
+  <h1>Мои задачи</h1>
+  <form class="row g-3 mb-3" method="get">
+    <div class="col-auto">
+      <input type="text" class="form-control" name="q" placeholder="Поиск..." value="{{ request.GET.q }}">
+    </div>
+    <div class="col-auto">
+      <select name="status" class="form-select">
+        <option value="">Все</option>
+        <option value="pending" {% if request.GET.status == 'pending' %}selected{% endif %}>Невыполненные</option>
+        <option value="completed" {% if request.GET.status == 'completed' %}selected{% endif %}>Выполненные</option>
+      </select>
+    </div>
+    <div class="col-auto">
+      <button type="submit" class="btn btn-primary">Фильтр</button>
+    </div>
+  </form>
+
+  {% if tasks %}
+    <ul class="list-group">
+    {% for task in tasks %}
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+          <h5>
+            <a href="{% url 'tasks:task_detail' task.pk %}">{{ task.title }}</a>
+            {% if task.completed %}
+              <span class="badge bg-success">Выполнено</span>
+            {% else %}
+              <span class="badge bg-warning text-dark">В работе</span>
+            {% endif %}
+          </h5>
+          <small>Дедлайн: {% if task.due_date %}{{ task.due_date|date:"d.m.Y H:i" }}{% else %}Не указан{% endif %}</small><br>
+          <small>Категория: {{ task.category }} | Теги: 
+          {% for tag in task.tags.all %}
+            <a href="?tag={{ tag.slug }}">{{ tag.name }}</a>{% if not forloop.last %}, {% endif %}
+          {% endfor %}
+          </small>
+        </div>
+        <div>
+          <a href="{% url 'tasks:task_toggle_complete' task.pk %}" class="btn btn-sm {% if task.completed %}btn-secondary{% else %}btn-success{% endif %}">
+            {% if task.completed %}Сделать невыполненной{% else %}Отметить выполненной{% endif %}
+          </a>
+        </div>
+      </li>
+    {% endfor %}
+    </ul>
+  {% else %}
+    <p>Нет задач</p>
+  {% endif %}
+
+  <a href="{% url 'tasks:task_create' %}" class="btn btn-success mt-3">Создать задачу</a>
+</div>
+{% endblock %}

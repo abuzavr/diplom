@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container">
+  <h1>Мои заметки</h1>
+  <form class="row g-3 mb-3" method="get">
+    <div class="col-auto">
+      <input type="text" class="form-control" name="q" placeholder="Поиск..." value="{{ request.GET.q }}">
+    </div>
+    <div class="col-auto">
+      <button type="submit" class="btn btn-primary">Искать</button>
+    </div>
+  </form>
+
+  {% if notes %}
+    <ul class="list-group">
+    {% for note in notes %}
+      <li class="list-group-item">
+        <h5><a href="{% url 'notes:note_detail' note.pk %}">{{ note.title }}</a></h5>
+        <small>Категория: {{ note.category }} | Теги: 
+        {% for tag in note.tags.all %}
+          <a href="?tag={{ tag.slug }}">{{ tag.name }}</a>{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+        </small>
+      </li>
+    {% endfor %}
+    </ul>
+  {% else %}
+    <p>Нет заметок</p>
+  {% endif %}
+
+  <a href="{% url 'notes:note_create' %}" class="btn btn-success mt-3">Создать заметку</a>
+</div>
+{% endblock %}

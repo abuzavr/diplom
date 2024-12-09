@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <h1>{{ note.title }}</h1>
+  <p>{{ note.content|linebreaks }}</p>
+  {% if note.attachment %}
+    <p><strong>Вложение:</strong> <a href="{{ note.attachment.url }}" target="_blank">{{ note.attachment.name|basename }}</a></p>
+  {% endif %}
+  <p><strong>Категория:</strong> {{ note.category }}</p>
+  <p><strong>Теги:</strong>
+  {% for tag in note.tags.all %}
+    <a href="{% url 'tags:tag_detail' tag.slug %}">{{ tag.name }}</a>{% if not forloop.last %}, {% endif %}
+  {% endfor %}
+  </p>
+
+  <a href="{% url 'notes:note_update' note.pk %}" class="btn btn-info">Редактировать</a>
+  <a href="{% url 'notes:note_delete' note.pk %}" class="btn btn-danger">Удалить</a>
+</div>
+{% endblock %}
