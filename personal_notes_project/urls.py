@@ -17,6 +17,9 @@ urlpatterns = [
     # Маршруты для задач
     path('tasks/', include('tasks.urls', namespace='tasks')),
 
+    # Подключение маршрутов приложения core
+    path('', include('core.urls', namespace='core')),
+
     # Категории
     path('categories/', include('categories.urls', namespace='categories')),
 

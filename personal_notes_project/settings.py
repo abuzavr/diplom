@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 from dotenv import load_dotenv
-import dj_database_url
+#import dj_database_url
 
 # Загружаем переменные окружения из .env
 load_dotenv()
@@ -69,7 +69,7 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
-                'django.template.context_processors.request',  
+                'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -83,26 +83,21 @@ ASGI_APPLICATION = 'personal_notes_project.asgi.application'
 
 # Настройки базы данных
 # По умолчанию SQLite, для локальной разработки.
-DATABASES = {
-    'default': dj_database_url.config(default='sqlite:///db.sqlite3'),
-}
-# DATABASE_URL = os.getenv('DATABASE_URL')
-# if DATABASE_URL:
-#     # Можно использовать dj_database_url для упрощения
-#     # pip install dj-database-url (опционально)
-#     # Пример:
-#     # import dj_database_url
-#     # DATABASES = {
-#     #    'default': dj_database_url.parse(DATABASE_URL)
-#     # }
-#     pass
-# else:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.sqlite3',
-#             'NAME': BASE_DIR / 'db.sqlite3',
-#         }
-#     }
+DATABASE_URL = os.getenv('DATABASE_URL')
+if DATABASE_URL:
+    # Если хотим использовать PostgreSQL или другую базу через DATABASE_URL
+    import dj_database_url
+    DATABASES = {
+        'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600)
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+
 
 # Локаль и часовой пояс
 LANGUAGE_CODE = 'ru-RU'
@@ -115,6 +110,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'  # Для продакшн окружений
+
 
 # Медиа файлы (загружаемые пользователями)
 MEDIA_URL = '/media/'
